@@ -337,3 +337,8 @@
 	<stddef.h>
 	<GL/gl.h>
 
+1722112420 source:c:\users\user\documents\hilcoe\2ndyr2ndtm\cs489\computer-graphics-opengl-programs\main.cpp
+	<GL/gl.h>
+	<GL/glu.h>
+	<GL/glut.h>
+

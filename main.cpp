@@ -29,7 +29,7 @@ int main(int argc,char **argv)
     glutMainLoop();
 
 }
-float x_pos=-10.0;
+float x_pos=-15.0;
 bool isMovingRight=true;
 void display(){
    glClear(GL_COLOR_BUFFER_BIT);//clearing the frame buffer
@@ -49,8 +49,11 @@ void display(){
    // glVertex2f(4,-5);
 
 //Rectangle
+    glColor3f(1.0,0,0);
     glVertex2f(x_pos,1.0);
+    glColor3f(0,1.0,0);
     glVertex2f(x_pos,-1.0);
+    glColor3f(0,0,1.0);
     glVertex2f(x_pos+2,-1);
     glVertex2f(x_pos+2,1.0);
 
@@ -70,14 +73,14 @@ void reshape(int w,int h){
         glMatrixMode(GL_MODELVIEW);
 }
 void timer(int a){
-    if(x_pos<8&&isMovingRight)
+    if(x_pos<3&&isMovingRight)
     x_pos+=0.15;
-    else if(x_pos>-10&&!isMovingRight){
+    else if(x_pos>-15&&!isMovingRight){
         x_pos-=0.15;
             }
-            else if(x_pos>=8&&isMovingRight)
+            else if(x_pos>=3&&isMovingRight)
                 isMovingRight=false;
-            else if(x_pos<=-10&&!isMovingRight)
+            else if(x_pos<=-15&&!isMovingRight)
             isMovingRight=true;
 //switch (isMovingRight){
 //case true :
