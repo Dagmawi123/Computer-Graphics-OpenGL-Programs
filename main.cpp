@@ -9,12 +9,13 @@ void timer(int);
 void init()
 {
     glClearColor(0.0,0.0,0.0,0.0);
+    glEnable(GL_DEPTH_TEST);
 }
 
 int main(int argc,char **argv)
 {
     glutInit(&argc,argv);
-    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
+    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 
     glutInitWindowPosition(200,100);
     glutInitWindowSize(500,500);
@@ -29,35 +30,28 @@ int main(int argc,char **argv)
     glutMainLoop();
 
 }
-float x_pos=-15.0;
+float x_pos=-15.0,angle=0.0;
 bool isMovingRight=true;
 void display(){
-   glClear(GL_COLOR_BUFFER_BIT);//clearing the frame buffer
+   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);//clearing the frame buffer
     glLoadIdentity();
-    glTranslatef(0,0,x_pos);
+    glTranslatef(0,0,-8);
+    glRotatef(angle,1,1,1);
    // glPointSize(10.0);
 
-    glBegin(GL_POLYGON);
-
-//Points
-//    glVertex2f(5,5);
-//    glVertex2f(-5,-5);
-
-//triangle
-   // glVertex2f(0,5);
-   // glVertex2f(-4,-5);
-   // glVertex2f(4,-5);
-
-//Rectangle
-   // glColor3f(1.0,0,0);
-    glVertex3f(0,1.0,0);
-    //glColor3f(0,1.0,0);
-    glVertex3f(0,-1.0,0);
-    //glColor3f(0,0,1.0);
-    glVertex3f(2,-1,0);
-    glVertex3f(2,1.0,0);
-
-
+    glBegin(GL_QUADS);
+//front
+glColor3f(1.0,0.0,0.0); glVertex3f(-1.0,1.0,1.0); glVertex3f(-1.0,-1.0,1.0); glVertex3f(1.0,-1.0,1.0); glVertex3f(1.0,1.0,1.0);
+  //back
+glColor3f(0.0,1.0,0.0); glVertex3f(1.0,1.0,-1.0); glVertex3f(1.0,-1.0,-1.0); glVertex3f(-1.0,-1.0,-1.0); glVertex3f(-1.0,1.0,-1.0);
+   //right
+glColor3f(0.0,0.0,1.0); glVertex3f(1.0,1.0,1.0); glVertex3f(1.0,-1.0,1.0); glVertex3f(1.0,-1.0,-1.0); glVertex3f(1.0,1.0,-1.0);
+//left
+glColor3f(1.0,1.0,0.0); glVertex3f(-1.0,1.0,-1.0); glVertex3f(-1.0,-1.0,-1.0); glVertex3f(-1.0,-1.0,1.0); glVertex3f(-1.0,1.0,1.0);
+//top
+glColor3f(0.0,1.0,1.0); glVertex3f(-1.0,1.0,-1.0); glVertex3f(-1.0,1.0,1.0); glVertex3f(1.0,1.0,1.0); glVertex3f(1.0,1.0,-1.0);
+//bottom
+glColor3f(1.0,0.0,1.0); glVertex3f(-1.0,-1.0,-1.0); glVertex3f(-1.0,-1.0,1.0); glVertex3f(1.0,-1.0,1.0); glVertex3f(1.0,-1.0,-1.0);
 
     glEnd();
     glutSwapBuffers();
@@ -74,15 +68,15 @@ void reshape(int w,int h){
         glMatrixMode(GL_MODELVIEW);
 }
 void timer(int a){
-    if(x_pos<-5&&isMovingRight)
-    x_pos+=0.15;
-    else if(x_pos>-15&&!isMovingRight){
-        x_pos-=0.15;
-            }
-            else if(x_pos>=-5&&isMovingRight)
-                isMovingRight=false;
-            else if(x_pos<=-15&&!isMovingRight)
-            isMovingRight=true;
+//    if(x_pos<-5&&isMovingRight)
+//    x_pos+=0.15;
+//    else if(x_pos>-15&&!isMovingRight){
+//        x_pos-=0.15;
+//            }
+//            else if(x_pos>=-5&&isMovingRight)
+//                isMovingRight=false;
+//            else if(x_pos<=-15&&!isMovingRight)
+//            isMovingRight=true;
 //switch (isMovingRight){
 //case true :
 //    if(x_pos<8)
@@ -98,6 +92,9 @@ void timer(int a){
 //        isMovingRight=true;
 //    break;
 //}
+if(angle>360.0)
+    angle=0.0;
+angle+=0.5*4;
     glutPostRedisplay();
       glutTimerFunc(1000/60,timer,2);
 
