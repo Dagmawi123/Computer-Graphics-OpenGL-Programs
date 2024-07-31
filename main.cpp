@@ -34,7 +34,7 @@ bool isMovingRight=true;
 void display(){
    glClear(GL_COLOR_BUFFER_BIT);//clearing the frame buffer
     glLoadIdentity();
-    glTranslatef(5.0,5.0,0.0);
+    glTranslatef(0,0,x_pos);
    // glPointSize(10.0);
 
     glBegin(GL_POLYGON);
@@ -49,13 +49,13 @@ void display(){
    // glVertex2f(4,-5);
 
 //Rectangle
-    glColor3f(1.0,0,0);
-    glVertex2f(x_pos,1.0);
-    glColor3f(0,1.0,0);
-    glVertex2f(x_pos,-1.0);
-    glColor3f(0,0,1.0);
-    glVertex2f(x_pos+2,-1);
-    glVertex2f(x_pos+2,1.0);
+   // glColor3f(1.0,0,0);
+    glVertex3f(0,1.0,0);
+    //glColor3f(0,1.0,0);
+    glVertex3f(0,-1.0,0);
+    //glColor3f(0,0,1.0);
+    glVertex3f(2,-1,0);
+    glVertex3f(2,1.0,0);
 
 
 
@@ -69,16 +69,17 @@ void reshape(int w,int h){
 
     glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        gluOrtho2D(-10,10,-10,10);
+       // gluOrtho2D(-10,10,-10,10);
+        gluPerspective(60,1,2.0,50.0);
         glMatrixMode(GL_MODELVIEW);
 }
 void timer(int a){
-    if(x_pos<3&&isMovingRight)
+    if(x_pos<-5&&isMovingRight)
     x_pos+=0.15;
     else if(x_pos>-15&&!isMovingRight){
         x_pos-=0.15;
             }
-            else if(x_pos>=3&&isMovingRight)
+            else if(x_pos>=-5&&isMovingRight)
                 isMovingRight=false;
             else if(x_pos<=-15&&!isMovingRight)
             isMovingRight=true;
